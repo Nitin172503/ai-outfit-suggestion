@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useState } from "react";
+import { Fragment, type FormEvent, useEffect, useState } from "react";
 import { api, ApiError, absoluteUrl } from "../api/client";
 import type { Library, SuggestedOutfit, WardrobeItem } from "../api/types";
 
@@ -56,6 +56,9 @@ export default function SuggestionsPage() {
   return (
     <div className="page">
       <h1>Outfit suggestions</h1>
+      <p className="subtitle" style={{ marginBottom: "1.25rem" }}>
+        Ranked by how well each combination's colors work together.
+      </p>
       <form className="inline-form" onSubmit={onSubmit}>
         <label>
           Occasion
@@ -100,21 +103,25 @@ function SuggestionCard({
     setSaved(true);
   }
 
+  const items = suggestion.item_ids.map((id) => byId.get(id)).filter((i): i is WardrobeItem => !!i);
+
   return (
     <div className="suggestion-card">
       <div className="suggestion-images">
-        {suggestion.item_ids.map((id) => {
-          const item = byId.get(id);
-          if (!item) return null;
-          return <img key={id} src={absoluteUrl(item.image_path)} alt={item.description} />;
-        })}
+        {items.map((item, idx) => (
+          <Fragment key={item.id}>
+            {idx > 0 && <span className="suggestion-join">+</span>}
+            <img src={absoluteUrl(item.image_path)} alt={item.description} />
+          </Fragment>
+        ))}
       </div>
       <div className="suggestion-body">
-        <h3>{suggestion.name}</h3>
-        <p className="harmony-tag">
-          {suggestion.color_harmony.replace("_", " ")} · {(suggestion.harmony_score * 100).toFixed(0)}% match
-        </p>
-        <p>{suggestion.rationale}</p>
+        <div className="suggestion-top-row">
+          <h3>{suggestion.name}</h3>
+          <span className="match-badge">{(suggestion.harmony_score * 100).toFixed(0)}% match</span>
+        </div>
+        <p className="harmony-tag">{suggestion.color_harmony.replace("_", " ")}</p>
+        <p className="suggestion-rationale">{suggestion.rationale}</p>
         <div className="row-buttons">
           <select value={libraryId} onChange={(e) => setLibraryId(e.target.value)}>
             <option value="">No library</option>

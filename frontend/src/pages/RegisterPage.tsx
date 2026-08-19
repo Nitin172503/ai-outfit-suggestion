@@ -2,6 +2,7 @@ import { type FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { ApiError } from "../api/client";
+import BrandMark from "../components/BrandMark";
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -27,9 +28,10 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="auth-page">
+    <div className="auth-page bg-wash">
       <form className="auth-card" onSubmit={onSubmit}>
         <Link to="/" className="brand-link">
+          <BrandMark />
           Outfit AI
         </Link>
         <p className="subtitle">Create your account</p>

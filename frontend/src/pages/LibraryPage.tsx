@@ -66,7 +66,7 @@ export default function LibraryPage() {
             </li>
           ))}
         </ul>
-        <form className="inline-form" onSubmit={createLibrary}>
+        <form className="library-add-form" onSubmit={createLibrary}>
           <input placeholder="New library name" value={newName} onChange={(e) => setNewName(e.target.value)} />
           <button type="submit">Add</button>
         </form>

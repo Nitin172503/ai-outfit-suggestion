@@ -2,6 +2,7 @@ import { type FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { ApiError } from "../api/client";
+import BrandMark from "../components/BrandMark";
 
 const DEMO_EMAIL = "demo@outfitai.app";
 const DEMO_PASSWORD = "OutfitDemo123!";
@@ -43,9 +44,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="auth-page">
+    <div className="auth-page bg-wash">
       <form className="auth-card" onSubmit={onSubmit}>
         <Link to="/" className="brand-link">
+          <BrandMark />
           Outfit AI
         </Link>
         <p className="subtitle">Log in to your wardrobe</p>

@@ -27,6 +27,9 @@ export default function ColorBookPage() {
   return (
     <div className="page">
       <h1>Color book</h1>
+      <p className="subtitle" style={{ marginBottom: "1.75rem" }}>
+        The color-wheel rules that power every outfit suggestion.
+      </p>
 
       <section>
         <h2>Try your own combination</h2>

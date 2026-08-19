@@ -62,8 +62,18 @@ export default function WardrobePage() {
   return (
     <div className="page">
       <div className="page-header">
-        <h1>Wardrobe</h1>
+        <div>
+          <h1>Wardrobe</h1>
+          {!loading && (
+            <p className="subtitle">
+              {items.length} item{items.length === 1 ? "" : "s"} catalogued
+            </p>
+          )}
+        </div>
         <label className="upload-button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <path d="M12 4v12m0-12 5 5m-5-5-5 5M5 19h14" />
+          </svg>
           {uploading ? "Uploading…" : "Upload photo or .zip"}
           <input type="file" accept=".jpg,.jpeg,.png,.zip" onChange={onFileChange} disabled={uploading} hidden />
         </label>
@@ -121,7 +131,10 @@ function WardrobeCard({
 
   return (
     <div className="card">
-      <img src={absoluteUrl(item.image_path)} alt={item.description || item.category} />
+      <div className="card-image">
+        {item.primary_color && <span className="card-accent" style={{ background: item.primary_color }} />}
+        <img src={absoluteUrl(item.image_path)} alt={item.description || item.category} />
+      </div>
       <div className="card-body">
         <div className="card-title-row">
           <select
